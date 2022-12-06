@@ -105,6 +105,7 @@ const filterVoices = (
       );
 
 async function sayVoices(voices: Voices, text: string): Promise<void> {
+  voices.forEach(({name})=>console.log(name));
   // eslint-disable-next-line functional/no-loop-statement
   for (const { name, raw } of voices) {
     console.log(raw);

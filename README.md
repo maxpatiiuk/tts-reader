@@ -1,12 +1,16 @@
 # TTS Reader
 
+```
+tts ./TEMP -o ./processed.txt && say -r 250 -f ./processed.txt -o out.flac --progress
+```
+
 Convert news articles into `.mp3` files that you can listen to at your own
 convenience.
 
 The idea behind this tool is to have a TXT file where the user would put web
 pages in read mode and other text-based information separated by `...` or other separation string you specify.
 
-The script will read the data from the file, remove redundancy, adopt it for
+The script will read the data from the file, remove redundancy, adapt it for
 TTS and covert it to `.mp3`
 
 The project uses [say](https://www.npmjs.com/package/say) NPM package for
@@ -20,7 +24,7 @@ Previous implementations of the TTS Reader:
 
 ## Installation
 
-Install dependencies: 
+Install dependencies:
 
 ```sh
 npm install
@@ -53,5 +57,8 @@ npx ts-node-esm src/run.ts --help
 Example call:
 
 ```sh
-npx ts-node-esm src/run.ts --input ~/Downloads/notes.txt --output ./test.mp3 --voice Ava --speed 2
+npx ts-node-esm src/run.ts --input ~/Downloads/notes.txt --output ./test.m4a --voice Ava --speed 2
 ```
+
+To see which file formats and data formats are supported on your
+system, run `say --file-format=\? --data-format=\?`

@@ -33,8 +33,8 @@ program
   )
   .option(
     "-d, --data-format <string>",
-    "output audio format. This influences audio quality and file size. For available options run `man say` in the terminal (aacf, flac, alac).",
-    "aacf"
+    "output audio format. This influences audio quality and file size. For available options run `man say` in the terminal (aifc, flac, m4a, aiff).",
+    "flac"
   )
   .option(
     "-f, --force",
