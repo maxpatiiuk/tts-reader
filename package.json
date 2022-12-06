@@ -27,7 +27,6 @@
   "homepage": "https://github.com/maxxxxxdlp/tts-reader#readme",
   "dependencies": {
     "commander": "^9.4.0",
-    "say": "^0.16.0",
     "string-strip-html": "^11.3.0",
     "ts-node": "^10.9.1"
   },

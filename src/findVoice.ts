@@ -3,42 +3,41 @@
  * see https://stackoverflow.com/a/14404223/8584605
  */
 
-import { program } from "commander";
-import { exec } from "node:child_process";
+import { program } from 'commander';
+import { exec } from 'node:child_process';
 
-import { f } from "./functools.js";
-import { speaker } from "./speaker.js";
+import { f } from './functools.js';
 
 program
-  .name("Voice finder helper")
-  .description("Find a suitable voice among installed system voices");
+  .name('Voice finder helper')
+  .description('Find a suitable voice among installed system voices');
 
 const defaultDelay = 100;
-const defaultSpeed = 1;
+const defaultSpeed = 100;
 
 program
   .option(
-    "-t, --text <string>",
-    "the test string to say",
-    "Hi! This is a test voice."
+    '-t, --text <string>',
+    'the test string to say',
+    'Hi! This is a test voice.'
   )
   .option(
-    "-l, --language <string>",
-    "only include voices whose language begins with a given string"
+    '-l, --language <string>',
+    'only include voices whose language begins with a given string'
   )
   .option(
-    "-d, --delay <number>",
-    "dalay between voices (in ms)",
+    '-d, --delay <number>',
+    'dalay between voices (in ms)',
     defaultDelay.toString()
   )
   .option(
-    "-s, --speed <number>",
-    "speed of the output",
+    '-s, --speed <number>',
+    'speed of the output ',
     defaultSpeed.toString()
   )
   .option(
-    "--voices  <names...>",
-    "list of voices to include (multiple space separated values are accepted)"
+    '--voices  <names...>',
+    'list of voices to include (multiple space separated values are accepted)'
   );
 
 program.parse();
@@ -81,10 +80,10 @@ type Voices = readonly {
 const parseVoices = (stdOut: string): Voices =>
   stdOut
     .trim()
-    .split("\n")
+    .split('\n')
     .map((line) => {
       // This may break on macOS update
-      const [nameAndLanguage, _description] = line.split("#");
+      const [nameAndLanguage, _description] = line.split('#');
       const [name, language] = nameAndLanguage.split(/\s{2,}/u);
       return { name, language, raw: line };
     });
@@ -105,12 +104,21 @@ const filterVoices = (
       );
 
 async function sayVoices(voices: Voices, text: string): Promise<void> {
-  voices.forEach(({name})=>console.log(name));
+  voices.forEach(({ name }) => console.log(name));
   // eslint-disable-next-line functional/no-loop-statement
   for (const { name, raw } of voices) {
     console.log(raw);
     // eslint-disable-next-line no-await-in-loop
-    await new Promise((resolve) => speaker.speak(text, name, speed, resolve));
+    await new Promise((resolve) =>
+      exec(
+        `say "${text.replaceAll('"', '"')}" --voice ${name} --rate ${speed}`,
+        (error, _stdout, stderr) => {
+          if (error) throw new Error(error.message);
+          if (stderr) throw new Error(stderr);
+          resolve(undefined);
+        }
+      )
+    );
     // eslint-disable-next-line no-await-in-loop
     await new Promise((resolve) => setTimeout(resolve, delay));
   }

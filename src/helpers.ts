@@ -1,13 +1,11 @@
-import fs from "node:fs";
-import type { Say } from "say";
-import { speaker } from "./speaker.js";
+import fs from 'node:fs';
 
 export async function timeIt(callback: Promise<void>): Promise<void> {
   const start = Date.now();
   await callback;
   const end = Date.now();
   const timePassed = Math.round((end - start) / 1000);
-  console.log("Done!");
+  console.log('Done!');
   console.log(`Total time: ${timePassed}s`);
 }
 
@@ -22,16 +20,3 @@ export async function fileExists(path: string): Promise<boolean> {
     return false;
   }
 }
-
-export const textToSpeech = async (
-  outputPath: string,
-  text: string,
-  speed: number,
-  voice?: string
-): Promise<void> =>
-  new Promise((resolve) =>
-    (speaker as Say).export(text, voice, speed, outputPath, (error) => {
-      if (Boolean(error)) throw new Error(error);
-      else resolve();
-    })
-  );
