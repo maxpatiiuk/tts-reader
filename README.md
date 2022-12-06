@@ -1,8 +1,12 @@
 # TTS Reader
 
-```
-tts ./TEMP -o ./processed.txt && say -r 250 -f ./processed.txt -o out.flac --progress
-```
+> Unlike on the `main` branch, the TTS Reader on this branch calls `say` for you
+> so you don't have to run two separate commands. It also can split the input
+> file into smaller chunks.
+> 
+> However, I found it way simpler to call these commands separately (plus that
+> decouples the text reshaper from the macOS exclusive tts-engine). That's why
+> the solution on the `main` branch is preferred.
 
 Convert news articles into `.mp3` files that you can listen to at your own
 convenience.
