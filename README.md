@@ -35,8 +35,17 @@ npm install
 
 Example usage with macOS's `say`:
 
-```
-npx ts-node-esm src/run.ts ./in.txt -o ./processed.txt && say -r 250 -f ./processed.txt -o out.flac --progress
+```sh
+# Generate an out.txt, out_2.txt, ... files based on processed input
+npx ts-node-esm src/run.ts --input ./in.txt --output ./out.txt
+# Go though each text file that hasn't yet been converted
+for f in out*.txt; do
+    echo "Generating $f.flac";
+    # convert to audio
+    say -r 250 -o "$f.flac" --progress "`cat $f`";
+    # and delete the source text file
+    rm "$f";
+done 
 ```
 
 To see all available options, run the main script with `--help` argument:
