@@ -2,9 +2,6 @@
   /* File Inclusion */
   "include": ["**/*.ts"],
   "exclude": ["node_modules", "testBuild"],
-  "files": [
-    "src/say.d.ts",
-  ],
   "compilerOptions": {
     /* Basic Options */
     "isolatedModules": true,
