@@ -2,13 +2,12 @@ import { stripHtml } from 'string-strip-html';
 
 import { regexRemovalList, removalList } from './config.js';
 import { f } from './functools.js';
-import { escapeRegExp } from './utils.js';
 
 /**
  * Run through several processing functions to prepare the text for TTS
  */
 export const reshapeText = (rawText: string): string =>
-  [stripAllHtml, removeEmojis, perLineProcessing, removeBlockListed].reduce(
+  [stripAllHtml, removeEmojis, removeBlockListed, perLineProcessing].reduce(
     (text, process) => process(text),
     rawText
   );
@@ -31,19 +30,20 @@ const reEmoji = new RegExp(
 const removeEmojis = (text: string): string => text.replace(reEmoji, '');
 
 function removeBlockListed(text: string): string {
-  const processed = removalList.reduce(
-    (text, blockListed) =>
-      text.replace(new RegExp(`^${escapeRegExp(blockListed)}$`, 'u'), ''),
-    text
-  );
   return regexRemovalList.reduce(
     (text, regexBlockList) => text.replace(regexBlockList, ''),
-    processed
+    text
   );
 }
 
 const perLineProcessing = (text: string): string =>
-  removeNonTextLines(removeRepeatedLines(text.split('\n'))).join('\n');
+  removeNonTextLines(removeRepeatedLines(strip(text.split('\n'))))
+    .filter((line) => !removalList.has(line))
+    .join('\n');
+
+// Trimming allows to detect more duplicate lines
+const strip = (lines: ReadonlyArray<string>) =>
+  lines.map((line) => line.trim());
 
 const removeRepeatedLines = f.unique;
 
@@ -54,5 +54,6 @@ const reText = /[\s".A-Za-z\-]+/gu;
 const removeNonTextLines = (text: readonly string[]): readonly string[] =>
   text.filter(
     (line) =>
+      line.length > 3 &&
       line.replaceAll(reText, '').length < line.length * textLineThreshold
   );

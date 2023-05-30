@@ -8,6 +8,7 @@ const defaultCommandLengthLimit = 128 * 1024;
 const safetyMargin = 4048;
 const safetyConfidence = 0.98;
 
+// FIXME: investigate this
 /**
  * Fetch the max size of a single file. Limited by the max command length
  * supported by the terminal.
