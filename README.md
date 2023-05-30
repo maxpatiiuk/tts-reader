@@ -3,8 +3,7 @@
 A preprocessing script for converting text to speech.
 
 Helps convert news articles into `.flac` files that you can listen to at your
-own
-convenience.
+own convenience.
 
 The idea behind this tool is to have a TXT file where the user would put web
 pages in read mode and other text-based information separated by `...` or other
@@ -17,6 +16,16 @@ Previous implementations of the TTS Reader:
 
 - [python_tts](https://github.com/maxxxxxdlp/python_tts/)
 - [TTS King](https://github.com/maxxxxxdlp/tts_king/)
+
+Example output:
+
+```
+Fetching the source file
+Reshaping the text
+Reduced the number of lines from 126,527 (72,756 non-blank) down to 61,707
+Done!
+Total time: 3s
+```
 
 ## Installation
 
@@ -41,9 +50,7 @@ npx ts-node-esm src/run.ts --input ./in.txt --output ./out.txt
 # Go though each text file that hasn't yet been converted
 for f in out*.txt; do
     echo "Generating $f.flac";
-    # convert to audio
     say -r 250 -o "$f.flac" --progress "`cat $f`";
-    # and delete the source text file
     rm "$f";
 done 
 ```
@@ -62,7 +69,7 @@ To see supported `say` file formats, run `say --file-format=\? --data-format=\?`
 
 1. Strip HTML
 2. Strip Emoji
-3. Strip block listed lines (defined in [./src/config.ts](./src/config.ts)).
+3. Strip block listed lines (defined in [./src/exclude-list.txt](./src/exclude-list.txt)).
    Those currently consist of the spam lines of text I found commonly repeated
    in the websites I often visit. (i.e `Advertisement`,
    `RECOMMENDED VIDEOS FOR YOU`, and other trash)
