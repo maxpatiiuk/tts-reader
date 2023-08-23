@@ -46,19 +46,19 @@ Example usage with macOS's `say`:
 
 ```sh
 # Generate an out.txt, out_2.txt, ... files based on processed input
-npx ts-node-esm src/run.ts --input ./in.txt --output ./out.txt
+node --loader ts-node/esm/transpile-only src/run.ts --input ./in.txt --output ./out.txt
 # Go though each text file that hasn't yet been converted
 for f in out*.txt; do
-    echo "Generating $f.flac";
-    say -r 250 -o "$f.flac" --progress "`cat $f`";
-    rm "$f";
-done 
+  echo "Generating $f.flac"
+  say -r 250 -o "$f.flac" --progress "$(cat $f)"
+  rm "$f"
+done
 ```
 
 To see all available options, run the main script with `--help` argument:
 
 ```
-npx ts-node-esm src/run.ts --help
+node --loader ts-node/esm/transpile-only src/run.ts --help
 ```
 
 To see available `say` options, run `man say`.
@@ -95,13 +95,13 @@ available on your system. Note, this only works with macOS's `say` command.
 To see available options, run it with `--help` argument:
 
 ```
-npx ts-node-esm src/findVoice.ts --help
+node --loader ts-node/esm/transpile-only src/findVoice.ts --help
 ```
 
 Example call:
 
 ```sh
-npx ts-node-esm src/findVoice.ts --voices Ava Karen Samantha --speed 200 --text "Hi! Isn't it cool to have a computer talk to you?"
+node --loader ts-node/esm/transpile-only src/findVoice.ts --voices Ava Karen Samantha --speed 200 --text "Hi! Isn't it cool to have a computer talk to you?"
 ```
 
 By default, `say` will use the voice you configured in your macOS settings.
