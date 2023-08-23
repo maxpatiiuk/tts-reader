@@ -6,6 +6,7 @@ import { reshapeText } from './reshaper.js';
 import { formatNumber } from './utils.js';
 import { f } from './functools.js';
 import { retrieveSizeLimit, splitFile } from './splitFile.js';
+import { countLines } from './countLines.js';
 
 program
   .name('TTS Reader')
@@ -15,7 +16,11 @@ program
 
 program
   .requiredOption('-i, --input <path>', 'location of the input file')
-  .requiredOption('-o, --output <path>', 'location of the processed text file')
+  .option('-o, --output <path>', 'location of the processed text file')
+  .option(
+    '-c, --countPath <path>',
+    'count repeated lines and output a .tsv summary to this file'
+  )
   .option(
     '-s, --split <number>',
     'Split input beyond this number of characters. Pass 0 to disable splitting. Default comes from `getconf ARG_MAX`'
@@ -31,26 +36,39 @@ program.parse();
 const {
   input,
   output,
+  countPath,
   split: rawSplit,
   force,
 } = program.opts<{
   readonly input: string;
-  readonly output: string;
+  readonly output?: string;
+  readonly countPath?: string;
   readonly force: boolean;
   readonly split?: string;
 }>();
 
-timeIt(run(input, output)).catch(console.error);
+timeIt(run(input, output, countPath)).catch(console.error);
 
-async function run(path: string, output: string): Promise<void> {
-  if (!force && (await fileExists(output)))
+async function run(
+  path: string,
+  output?: string,
+  countPath?: string
+): Promise<void> {
+  if (!force && typeof output === 'string' && (await fileExists(output)))
     throw new Error('Output file already exists');
 
   console.log('Fetching the source file');
   const rawText = await fetchInput(path);
 
+  if (typeof countPath === 'string')
+    await fs.promises.writeFile(
+      countPath,
+      countLines(reshapeText(rawText, false).split('\n'))
+    );
+  if (output === undefined) return;
+
   console.log('Reshaping the text');
-  const text = reshapeText(rawText);
+  const text = reshapeText(rawText, true);
 
   // Don't count empty lines
   const oldLines = formatNumber(rawText.split('\n').length);

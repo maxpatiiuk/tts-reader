@@ -6,11 +6,13 @@ import { f } from './functools.js';
 /**
  * Run through several processing functions to prepare the text for TTS
  */
-export const reshapeText = (rawText: string): string =>
-  [stripAllHtml, removeEmojis, removeBlockListed, perLineProcessing].reduce(
-    (text, process) => process(text),
-    rawText
-  );
+export const reshapeText = (rawText: string, removeRepeated: boolean): string =>
+  [
+    stripAllHtml,
+    removeEmojis,
+    removeBlockListed,
+    perLineProcessing.bind(undefined, removeRepeated),
+  ].reduce((text, process) => process(text), rawText);
 
 const stripAllHtml = (text: string): string => stripHtml(text).result;
 
@@ -36,8 +38,10 @@ function removeBlockListed(text: string): string {
   );
 }
 
-const perLineProcessing = (text: string): string =>
-  removeNonTextLines(removeRepeatedLines(strip(text.split('\n'))))
+const perLineProcessing = (removeRepeated: boolean, text: string): string =>
+  removeNonTextLines(
+    (removeRepeated ? removeRepeatedLines : f.id)(strip(text.split('\n')))
+  )
     .filter((line) => !removalList.has(line))
     .join('\n');
 

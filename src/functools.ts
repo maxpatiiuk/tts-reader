@@ -14,4 +14,5 @@ export const f = {
   },
   unique: <T>(values: readonly T[]): readonly T[] =>
     Array.from(new Set(values)),
+  id: <T>(value: T): T => value,
 } as const;

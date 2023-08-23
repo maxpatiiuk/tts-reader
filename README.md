@@ -9,8 +9,8 @@ The idea behind this tool is to have a TXT file where the user would put web
 pages in read mode and other text-based information separated by `...` or other
 separation string you specify.
 
-The script will read the data from the file, remove redundancy, adapt it for
-TTS and covert it to `.mp3`
+The script will read the data from the file, remove redundancy, adapt it for TTS
+and covert it to `.mp3`
 
 Previous implementations of the TTS Reader:
 
@@ -69,10 +69,10 @@ To see supported `say` file formats, run `say --file-format=\? --data-format=\?`
 
 1. Strip HTML
 2. Strip Emoji
-3. Strip block listed lines (defined in [./src/exclude-list.txt](./src/exclude-list.txt)).
-   Those currently consist of the spam lines of text I found commonly repeated
-   in the websites I often visit. (i.e `Advertisement`,
-   `RECOMMENDED VIDEOS FOR YOU`, and other trash)
+3. Strip block listed lines (defined in
+   [./src/exclude-list.txt](./src/exclude-list.txt)). Those currently consist of
+   the spam lines of text I found commonly repeated in the websites I often
+   visit. (i.e `Advertisement`, `RECOMMENDED VIDEOS FOR YOU`, and other trash)
 4. Stip non-text lines (defined as lines that have more than 30% of
    non-English-letter characters). This strips out code, spam, math equations
    and other things that are not friendly with text-to-speech software.
@@ -81,17 +81,16 @@ To see supported `say` file formats, run `say --file-format=\? --data-format=\?`
 
    Why this is super cool:
 
-    - If you accidentally pasted the same news article twice, this step will
-      remove the duplicate
-    - It will automatically remove all the commonly repeated lines like
-      `Advertisement`, or footers from websites (i.e, Wired has a whole bunch of
-      lines like`More Great WIRED Stories` at the end of each article)
+   - If you accidentally pasted the same news article twice, this step will
+     remove the duplicate
+   - It will automatically remove all the commonly repeated lines like
+     `Advertisement`, or footers from websites (i.e, Wired has a whole bunch of
+     lines like`More Great WIRED Stories` at the end of each article)
 
 ## Finding Voices
 
 There is a helper script provided for finding the best voice among those
-available
-on your system. Note, this only works with macOS's `say` command.
+available on your system. Note, this only works with macOS's `say` command.
 
 To see available options, run it with `--help` argument:
 
@@ -107,3 +106,15 @@ npx ts-node-esm src/findVoice.ts --voices Ava Karen Samantha --speed 200 --text 
 
 By default, `say` will use the voice you configured in your macOS settings.
 [Documentation](https://support.apple.com/guide/mac-help/change-spoken-content-settings-accessibility-spch638/mac)
+
+## Finding spam lines
+
+It is desirable to strip spam lines (i.e `Advertisement`,
+`RECOMMENDED VIDEOS FOR YOU`, and other trash). To help with finding those, you
+can run the script with `--countPath` argument, like so:
+
+```sh
+node --loader ts-node/esm/transpile-only src/run.ts --input ./in.txt --countPath ./counted.tsv
+```
+
+Then, you can add the discovered spam lines to `./src/exclude-list.txt`
