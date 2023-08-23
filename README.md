@@ -14,8 +14,8 @@ and covert it to `.mp3`
 
 Previous implementations of the TTS Reader:
 
-- [python_tts](https://github.com/maxxxxxdlp/python_tts/)
-- [TTS King](https://github.com/maxxxxxdlp/tts_king/)
+- [python_tts](https://github.com/maxpatiiuk/python_tts/)
+- [TTS King](https://github.com/maxpatiiuk/tts_king/)
 
 Example output:
 

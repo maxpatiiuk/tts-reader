@@ -11,7 +11,7 @@ import { countLines } from './countLines.js';
 program
   .name('TTS Reader')
   .description(
-    'Convert news articles into `.mp3` files that you can listen to at your own convenience'
+    'Convert web articles into `.mp3` files that you can listen to at your own convenience'
   );
 
 program

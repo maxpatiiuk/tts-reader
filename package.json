@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/maxxxxxdlp/tts-reader.git"
+    "url": "git+https://github.com/maxpatiiuk/tts-reader.git"
   },
   "keywords": [
     "tts",
@@ -22,11 +22,11 @@
   "author": "Max Patiiuk",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/maxxxxxdlp/tts-reader/issues"
+    "url": "https://github.com/maxpatiiuk/tts-reader/issues"
   },
-  "homepage": "https://github.com/maxxxxxdlp/tts-reader#readme",
+  "homepage": "https://github.com/maxpatiiuk/tts-reader#readme",
   "dependencies": {
-    "commander": "^11.0.0",
+    "commander": "^11.1.0",
     "string-strip-html": "^13.4.1",
     "ts-node": "^10.9.1"
   },

@@ -16,18 +16,14 @@ export const reshapeText = (rawText: string, removeRepeated: boolean): string =>
 
 const stripAllHtml = (text: string): string => stripHtml(text).result;
 
-/* eslint-disable */
-// From https://stackoverflow.com/a/49986645/8584605
-const reEmoji = new RegExp(
-  '[' +
-    'U0001F600-U0001F64F' + // Emoticons
-    'U0001F300-U0001F5FF' + // Symbols & pictographs
-    'U0001F680-U0001F6FF' + // Transport & map symbols
-    'U0001F1E0-U0001F1FF' + // Flags (iOS)
-    ']+',
-  'u'
-);
-/* eslint-enable */
+/**
+ * Remove Emojis, control characters and other uncommon characters
+ *
+ * @see https://www.regular-expressions.info/unicode.html
+ * @see https://www.compart.com/en/unicode/category
+ */
+const reEmoji =
+  /[^\p{Letter}\p{Number}\p{Punctuation}\p{Separator}\s\p{Math_Symbol}\p{Currency_Symbol}`^]/gu;
 
 const removeEmojis = (text: string): string => text.replace(reEmoji, '');
 
