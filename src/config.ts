@@ -15,4 +15,7 @@ export const removalList: ReadonlySet<string> = new Set(
     .split('\n')
 );
 
-export const regexRemovalList = [/^Last modified on [^\n]+$/u];
+export const regexRemovalList = [
+  /^Last modified on [^\n]+$/u,
+  /^Cover image for [^\n]+$/u,
+];

@@ -2,29 +2,26 @@
   "name": "tts-reader",
   "version": "1.0.0",
   "description": "Convert news articles into `.mp3` files that you can listen to at your own convenience.",
-  "exports": "dist/index.js",
-  "scripts": {
-    "test": "tsc"
-  },
+  "license": "MIT",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/maxpatiiuk/tts-reader.git"
   },
-  "keywords": [
-    "tts",
-    "tts",
-    "reader",
-    "news",
-    "to",
-    "tts"
-  ],
-  "type": "module",
   "author": "Max Patiiuk",
-  "license": "MIT",
+  "homepage": "https://github.com/maxpatiiuk/tts-reader#readme",
   "bugs": {
     "url": "https://github.com/maxpatiiuk/tts-reader/issues"
   },
-  "homepage": "https://github.com/maxpatiiuk/tts-reader#readme",
+  "type": "module",
+  "scripts": {
+    "test": "tsc"
+  },
+  "keywords": [
+    "tts",
+    "reader",
+    "news",
+    "to"
+  ],
   "dependencies": {
     "commander": "^11.1.0",
     "string-strip-html": "^13.4.1",

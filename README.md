@@ -57,7 +57,7 @@ done
 
 To see all available options, run the main script with `--help` argument:
 
-```
+```sh
 node --loader ts-node/esm/transpile-only src/run.ts --help
 ```
 
@@ -73,7 +73,7 @@ To see supported `say` file formats, run `say --file-format=\? --data-format=\?`
    [./src/exclude-list.txt](./src/exclude-list.txt)). Those currently consist of
    the spam lines of text I found commonly repeated in the websites I often
    visit. (i.e `Advertisement`, `RECOMMENDED VIDEOS FOR YOU`, and other trash)
-4. Stip non-text lines (defined as lines that have more than 30% of
+4. Strip non-text lines (defined as lines that have more than 30% of
    non-English-letter characters). This strips out code, spam, math equations
    and other things that are not friendly with text-to-speech software.
 5. Remove repeated lines. This is perhaps the most important one. It can
@@ -85,7 +85,7 @@ To see supported `say` file formats, run `say --file-format=\? --data-format=\?`
      remove the duplicate
    - It will automatically remove all the commonly repeated lines like
      `Advertisement`, or footers from websites (i.e, Wired has a whole bunch of
-     lines like`More Great WIRED Stories` at the end of each article)
+     lines like `More Great WIRED Stories` at the end of each article)
 
 ## Finding Voices
 
@@ -94,7 +94,7 @@ available on your system. Note, this only works with macOS's `say` command.
 
 To see available options, run it with `--help` argument:
 
-```
+```sh
 node --loader ts-node/esm/transpile-only src/findVoice.ts --help
 ```
 
