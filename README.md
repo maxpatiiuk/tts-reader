@@ -1,5 +1,13 @@
 # TTS Reader
 
+> 🟥 This project has been superseded by
+> [Text Hoarder](https://github.com/maxpatiiuk/text-hoarder/) - a browser
+> extension for saving articles to a private GitHub repository, with a CLI for
+> generating stats or pre-processing the text for TTS.
+>
+> The TTS Reader still works, but is now redundant with Text Hoarder's CLI and
+> will not receive any more updates.
+
 A preprocessing script for converting text to speech.
 
 Helps convert news articles into `.flac` files that you can listen to at your
